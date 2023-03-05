@@ -1,8 +1,11 @@
 package controller;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import view.Tela;
 
 public class ThreadCorrida extends Thread{
 	
@@ -22,31 +25,43 @@ public class ThreadCorrida extends Thread{
 	
 	@Override
 	public void run() {
-		btnCorrer.setEnabled(false);
-		textFieldVenc.setText("");
-		textFieldPerd.setText("");
-		Thread threadCarroA = new ThreadCarro(carroA);
-		Thread threadCarroB = new ThreadCarro(carroB);
-		threadCarroA.start();
-		threadCarroB.start();
 		
-		while (threadCarroA.isAlive() && threadCarroB.isAlive()) {
+		comecaCorrida();
+		Thread sonic = new ThreadCarro(carroA);
+		Thread tails = new ThreadCarro(carroB);
+		sonic.start();
+		tails.start();
+		
+		while (sonic.isAlive() && tails.isAlive()) {
 			try {
 				sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		if (threadCarroA.isAlive()) {
-			threadCarroA.interrupt();
-			textFieldVenc.setText("Carro B");
-			textFieldPerd.setText("Carro A");
+
+		if (sonic.isAlive()) {
+			sonic.interrupt();
+			terminaCorrida("Tails", "Sonic");
 		} else {
-			threadCarroB.interrupt();
-			textFieldVenc.setText("Carro A");
-			textFieldPerd.setText("Carro B");
+			tails.interrupt();
+			terminaCorrida("Sonic", "Tails");
 		}
+	}
+
+	private void comecaCorrida() {
+		btnCorrer.setEnabled(false);
+		textFieldVenc.setText("");
+		textFieldPerd.setText("");
+		carroA.setIcon(new ImageIcon(Tela.class.getResource("/view/sonic-corre.gif")));
+		carroB.setIcon(new ImageIcon(Tela.class.getResource("/view/tails-corre.gif")));
+	}
+
+	private void terminaCorrida(String vencedor, String perdedor) {
+		carroA.setIcon(new ImageIcon(Tela.class.getResource("/view/sonic-parado.png")));
+		carroB.setIcon(new ImageIcon(Tela.class.getResource("/view/tails-parado.png")));
+		textFieldVenc.setText(vencedor);
+		textFieldPerd.setText(perdedor);
 		btnCorrer.setEnabled(true);
 	}
 

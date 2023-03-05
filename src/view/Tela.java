@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 
 public class Tela extends JFrame {
 
@@ -47,6 +48,7 @@ public class Tela extends JFrame {
 	 * Create the frame.
 	 */
 	public Tela() {
+		setTitle("Corrida");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 450);
 		contentPane = new JPanel();
@@ -60,11 +62,13 @@ public class Tela extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel carroA = new JLabel("CARRO A");
-		carroA.setBounds(50, 60, 70, 15);
+		carroA.setIcon(new ImageIcon(Tela.class.getResource("/view/sonic-parado.png")));
+		carroA.setBounds(50, 40, 70, 81);
 		contentPane.add(carroA);
 		
 		JLabel carroB = new JLabel("CARRO B");
-		carroB.setBounds(50, 210, 70, 15);
+		carroB.setIcon(new ImageIcon(Tela.class.getResource("/view/tails-parado.png")));
+		carroB.setBounds(50, 170, 70, 80);
 		contentPane.add(carroB);
 		
 		JLabel lblVencedor = new JLabel("Vencedor:");
