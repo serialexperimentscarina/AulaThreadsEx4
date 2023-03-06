@@ -25,7 +25,6 @@ public class ThreadCorrida extends Thread{
 	
 	@Override
 	public void run() {
-		
 		comecaCorrida();
 		Thread sonic = new ThreadCarro(carroA);
 		Thread tails = new ThreadCarro(carroB);
@@ -49,6 +48,7 @@ public class ThreadCorrida extends Thread{
 		}
 	}
 
+	
 	private void comecaCorrida() {
 		btnCorrer.setEnabled(false);
 		textFieldVenc.setText("");
